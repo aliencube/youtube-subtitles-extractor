@@ -1,10 +1,10 @@
 # YouTube Subtitles Extractor <img src="./icons/YouTubeSubtitlesExtractor.png" width="64" height="64" />
 
-This is the NuGet package library that retrieves subtitles from a given YouTube video, inspired by https://github.com/devhims/youtube-caption-extractor.
+This is the NuGet package library that retrieves subtitles from a given YouTube video, inspired by [@devhims](https://github.com/devhims) [YouTube Caption Extractor](https://github.com/devhims/youtube-caption-extractor).
 
 | Package | Status | Version |
 | --- | --- | --- |
-| Aliencube.YouTubeSubtitlesExtractor | [![](https://img.shields.io/nuget/dt/Aliencube.YouTubeSubtitlesExtractor.svg)](https://www.nuget.org/packages/Aliencube.YouTubeSubtitlesExtractor) | [![](https://img.shields.io/nuget/v/Aliencube.YouTubeSubtitlesExtractor.svg)](https://www.nuget.org/packages/Aliencube.YouTubeSubtitlesExtractor) |
+| [Aliencube.YouTubeSubtitlesExtractor](https://www.nuget.org/packages/Aliencube.YouTubeSubtitlesExtractor) | [![](https://img.shields.io/nuget/dt/Aliencube.YouTubeSubtitlesExtractor.svg)](https://www.nuget.org/packages/Aliencube.YouTubeSubtitlesExtractor) | [![](https://img.shields.io/nuget/v/Aliencube.YouTubeSubtitlesExtractor.svg)](https://www.nuget.org/packages/Aliencube.YouTubeSubtitlesExtractor) |
 
 ## Getting Started ![Build and Test](https://github.com/aliencube/youtube-subtitles-extractor/workflows/Build%20and%20Test/badge.svg)
 
@@ -41,6 +41,10 @@ This is the NuGet package library that retrieves subtitles from a given YouTube 
     var options = new VideoOptions { Url = youtubeUrl, LanguageCode = "ko" };
     var subtitles = await youtube.ExtractSubtitleAsync(options);
     ```
+
+## Issues or Feedbacks
+
+Please leave any issues or feedbacks [here](https://github.com/aliencube/youtube-subtitles-extractor/issues).
 
 ## TO-DOs
 

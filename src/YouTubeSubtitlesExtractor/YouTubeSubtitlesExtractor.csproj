@@ -34,10 +34,13 @@
 
     <PackageIconUrl>https://raw.githubusercontent.com/aliencube/youtube-subtitles-extractor/main/icons/YouTubeSubtitlesExtractor.png</PackageIconUrl>
     <PackageIcon>YouTubeSubtitlesExtractor.png</PackageIcon>
+
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\icons\YouTubeSubtitlesExtractor.png" Pack="true" PackagePath="\" />
+    <None Include="../../icons/YouTubeSubtitlesExtractor.png" Pack="true" PackagePath="/" />
+    <None Include="../../README.md" Pack="true" PackagePath="/"/>
   </ItemGroup>
 
   <ItemGroup>

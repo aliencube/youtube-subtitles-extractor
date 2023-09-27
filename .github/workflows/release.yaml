@@ -12,94 +12,76 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check event payload
+    # - name: Check event payload
+    #   shell: pwsh
+    #   run: |
+    #     echo ${{ toJSON(github.event) }}
+
+    - name: Set release version
+      id: release
       shell: pwsh
       run: |
-        echo ${{ toJSON(github.event) }}
+        $version = "${{ github.event.ref }}" -replace "refs/tags/v", ""
 
-    # - name: Set release module and version
-    #   id: release
-    #   shell: pwsh
-    #   run: |
-    #     $branch = "${{ github.event.ref }}" -replace "refs/heads/release/", ""
-    #     $segments = $branch -split "-"
-    #     $module = $segments[0]
-    #     $version = $segments[1]
+        echo "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf-8 -Append
 
-    #     echo "::set-output name=module::$module"
-    #     echo "::set-output name=version::$version"
+    - name: Check release module and version
+      shell: pwsh
+      run: |
+        echo "version: ${{ steps.release.outputs.version }}"
 
-    # - name: Check release module and version
-    #   shell: pwsh
-    #   run: |
-    #     echo "module: ${{ steps.release.outputs.module }}"
-    #     echo "version: ${{ steps.release.outputs.version }}"
+    - name: Checkout the repository
+      uses: actions/checkout@v4
 
-    # - name: Checkout the repository
-    #   uses: actions/checkout@v4
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.x'
 
-    # - name: Setup .NET SDK
-    #   uses: actions/setup-dotnet@v3
-    #   with:
-    #     dotnet-version: '7.x'
+    # - name: Add MSBuild to PATH
+    #   uses: microsoft/setup-msbuild@v1.0.0
 
-    # # - name: Add MSBuild to PATH
-    # #   uses: microsoft/setup-msbuild@v1.0.0
+    - name: Restore NuGet packages
+      shell: pwsh
+      run: |
+        dotnet restore
 
-    # - name: Restore NuGet packages
-    #   shell: pwsh
-    #   run: |
-    #     dotnet restore
+    - name: Build solution
+      shell: pwsh
+      run: |
+        dotnet build -c Release -p:Version=${{ steps.release.outputs.version }} -v minimal
 
-    # - name: Build solution
-    #   shell: pwsh
-    #   run: |
-    #     dotnet build -c Release -p:Version=${{ steps.release.outputs.version }} -v minimal
+    - name: Test solution
+      shell: pwsh
+      run: |
+        dotnet test -c Release
 
-    # - name: Test solution
-    #   shell: pwsh
-    #   run: |
-    #     dotnet test -c Release
+    - name: List Package
+      id: package
+      shell: pwsh
+      run: |
+        $package = Get-ChildItem -Path ./src -Include *.nupkg -Recurse | Where-Object { $_.FullName -like "*${{ steps.release.outputs.version }}*" }
+        $path = $package[0].FullName
+        $name = $package[0].Name
 
-    # - name: List Package for Common
-    #   id: package
-    #   shell: pwsh
-    #   run: |
-    #     $package = Get-ChildItem -Path ./src -Include *.nupkg -Recurse | Where-Object { $_.FullName -like "*${{ steps.release.outputs.version }}*" }
-    #     $path = $package[0].FullName
-    #     $name = $package[0].Name
+        echo "path=$path" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf-8 -Append
+        echo "name=$name" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf-8 -Append
 
-    #     echo "::set-output name=path::$path"
-    #     echo "::set-output name=name::$name"
+    - name: Check package path and name
+      shell: pwsh
+      run: |
+        echo "path: ${{ steps.package.outputs.path }}"
+        echo "name: ${{ steps.package.outputs.name }}"
 
-    # - name: Check package path and name
-    #   shell: pwsh
-    #   run: |
-    #     echo "path: ${{ steps.package.outputs.path }}"
-    #     echo "name: ${{ steps.package.outputs.name }}"
+    - name: Release package to GitHub
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
+        files: |
+          ${{ steps.package.outputs.path }}
 
-    # - name: Create Release to GitHub
-    #   id: ghrelease
-    #   uses: actions/create-release@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     tag_name: "${{ steps.release.outputs.module }}-${{ steps.release.outputs.version }}"
-    #     release_name: Release "${{ steps.release.outputs.module }}-v${{ steps.release.outputs.version }}"
-    #     draft: false
-    #     prerelease: false
-
-    # - name: Upload NuGet package to GitHub
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: ${{ steps.ghrelease.outputs.upload_url }}
-    #     asset_path: ${{ steps.package.outputs.path }}
-    #     asset_name: ${{ steps.package.outputs.name }}
-    #     asset_content_type: application/octet-stream
-
-    # - name: Release to NuGet
-    #   shell: pwsh
-    #   run: |
-    #     dotnet nuget push ${{ steps.package.outputs.path }} --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+    - name: Release package to NuGet
+      shell: pwsh
+      run: |
+        dotnet nuget push ${{ steps.package.outputs.path }} --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
