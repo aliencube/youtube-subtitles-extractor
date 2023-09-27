@@ -96,6 +96,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
         }
 
         [DataTestMethod]
+        [DataRow("https://www.youtube.com/live/47CZqb53nCM?si=QOR3XVjcUzZSSdqX", "en")]
         [DataRow("https://www.youtube.com/watch?v=i8tMiWHK05M", "en")]
         [DataRow("https://www.youtube.com/watch?v=i8tMiWHK05M", "ko")]
         public async Task Given_VideoUrl_And_LanguageCode_When_ExtractSubtitleAsync_Invoked_Then_It_Should_Return_Subtitle(string videoUrl, string languageCode)

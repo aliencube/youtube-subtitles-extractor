@@ -73,8 +73,21 @@ public class YouTubeVideo : IYouTubeVideo
 
         foreach (var code in options.LanguageCodes)
         {
-            var track = captionTracks.SingleOrDefault(p => p.LanguageCode.Equals(code, StringComparison.InvariantCultureIgnoreCase));
-            if (track == null)
+            var tracks = captionTracks.Where(p => p.LanguageCode.Equals(code, StringComparison.InvariantCultureIgnoreCase));
+            if (tracks.Any() == false)
+            {
+                continue;
+            }
+            var track = default(CaptionTrack);
+            if (tracks.Count() > 1)
+            {
+                track = tracks.SingleOrDefault(p => string.IsNullOrWhiteSpace(p.Kind) == true);
+            }
+            else
+            {
+                track = tracks.SingleOrDefault();
+            }
+            if (track == default)
             {
                 continue;
             }

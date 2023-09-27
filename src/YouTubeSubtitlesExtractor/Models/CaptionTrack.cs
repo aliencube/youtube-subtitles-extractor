@@ -21,6 +21,11 @@ public class CaptionTrack
     public virtual string? VssId { get; set; }
 
     /// <summary>
+    /// Gets or sets the caption type. One possible value is "asr".
+    /// </summary>
+    public virtual string? Kind { get; set; }
+
+    /// <summary>
     /// Gets or sets the caption track language code.
     /// </summary>
     public virtual string? LanguageCode { get; set; }
