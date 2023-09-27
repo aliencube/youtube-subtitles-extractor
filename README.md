@@ -4,6 +4,10 @@
 
 This is the NuGet package library that retrieves subtitles from a given YouTube video, inspired by [@devhims](https://github.com/devhims)' [YouTube Caption Extractor](https://github.com/devhims/youtube-caption-extractor).
 
+## Known Issues
+
+- If you use this library on your [Blazor WebAssembly](https://learn.microsoft.com/aspnet/core/blazor/hosting-models#blazor-webassembly) project, you might encounter the [CORS error](https://developer.mozilla.org/docs/Web/HTTP/CORS). The only workaround is to use a facade API to retrieve the subtitles.
+
 ## Getting Started
 
 1. Install the [NuGet package](https://www.nuget.org/packages/Aliencube.YouTubeSubtitlesExtractor) to your project.
