@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>YouTubeSubtitlesExtractor</AssemblyName>
-    <RootNamespace>YouTubeSubtitlesExtractor</RootNamespace>
+    <AssemblyName>Aliencube.YouTubeSubtitlesExtractor</AssemblyName>
+    <RootNamespace>Aliencube.YouTubeSubtitlesExtractor</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>

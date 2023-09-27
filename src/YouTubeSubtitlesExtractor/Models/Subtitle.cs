@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace YouTubeSubtitlesExtractor.Models;
+namespace Aliencube.YouTubeSubtitlesExtractor.Models;
 
 /// <summary>
 /// This represents the subtitle entity.

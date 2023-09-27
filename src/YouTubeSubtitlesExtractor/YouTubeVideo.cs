@@ -2,10 +2,10 @@
 
 using Newtonsoft.Json;
 
-using YouTubeSubtitlesExtractor.Abstractions;
-using YouTubeSubtitlesExtractor.Models;
+using Aliencube.YouTubeSubtitlesExtractor.Abstractions;
+using Aliencube.YouTubeSubtitlesExtractor.Models;
 
-namespace YouTubeSubtitlesExtractor;
+namespace Aliencube.YouTubeSubtitlesExtractor;
 
 /// <summary>
 /// This represents the YouTube video entity.
@@ -37,7 +37,7 @@ public class YouTubeVideo : IYouTubeVideo
     /// <inheritdoc/>
     public async Task<Subtitle> ExtractSubtitleAsync(string videoUrl, string languageCode = "en")
     {
-        var options = new VideoOptions() { VideoUrl = videoUrl, LanguageCodes = new List<string>() { languageCode } };
+        var options = new VideoOptions() { VideoUrl = videoUrl, LanguageCodes = { languageCode } };
 
         var subtitles = await this.ExtractSubtitlesAsync(options).ConfigureAwait(false);
 

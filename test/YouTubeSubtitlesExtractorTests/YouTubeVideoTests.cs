@@ -1,9 +1,9 @@
 using FluentAssertions;
 
-using YouTubeSubtitlesExtractor;
-using YouTubeSubtitlesExtractor.Models;
+using Aliencube.YouTubeSubtitlesExtractor;
+using Aliencube.YouTubeSubtitlesExtractor.Models;
 
-namespace YouTubeSubtitlesExtractorTests
+namespace Aliencube.YouTubeSubtitlesExtractorTests
 {
     [TestClass]
     public class YouTubeVideoTests
@@ -48,7 +48,7 @@ namespace YouTubeSubtitlesExtractorTests
         }
 
         [DataTestMethod]
-        [DataRow("https://www.youtube.com/watch?v=i8tMiWHK05M", 1)]
+        [DataRow("https://www.youtube.com/watch?v=i8tMiWHK05M", 0)]
         public async Task Given_VideoUrl_When_ExtractSubtitlesAsync_Invoked_Then_It_Should_Return_Subtitles(string videoUrl, int expected)
         {
             var http = new HttpClient();

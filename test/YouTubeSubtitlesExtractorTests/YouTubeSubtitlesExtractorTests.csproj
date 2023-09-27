@@ -6,8 +6,8 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
 
-    <AssemblyName>YouTubeSubtitlesExtractorTests</AssemblyName>
-    <RootNamespace>YouTubeSubtitlesExtractorTests</RootNamespace>
+    <AssemblyName>Aliencube.YouTubeSubtitlesExtractorTests</AssemblyName>
+    <RootNamespace>Aliencube.YouTubeSubtitlesExtractorTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

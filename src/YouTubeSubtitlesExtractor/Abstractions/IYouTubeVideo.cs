@@ -1,6 +1,6 @@
-﻿using YouTubeSubtitlesExtractor.Models;
+﻿using Aliencube.YouTubeSubtitlesExtractor.Models;
 
-namespace YouTubeSubtitlesExtractor.Abstractions;
+namespace Aliencube.YouTubeSubtitlesExtractor.Abstractions;
 
 /// <summary>
 /// This provides interfaces to the <see cref="YouTubeVideo"/> class.

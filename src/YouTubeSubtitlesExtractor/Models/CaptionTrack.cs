@@ -1,4 +1,4 @@
-﻿namespace YouTubeSubtitlesExtractor.Models;
+﻿namespace Aliencube.YouTubeSubtitlesExtractor.Models;
 
 /// <summary>
 /// This represents the caption track entity.
