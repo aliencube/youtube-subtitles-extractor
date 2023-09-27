@@ -49,7 +49,7 @@ jobs:
     # - name: Restore NuGet packages
     #   shell: pwsh
     #   run: |
-    #     dotnet restore -c Release
+    #     dotnet restore
 
     # - name: Build solution
     #   shell: pwsh

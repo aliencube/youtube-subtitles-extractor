@@ -33,7 +33,7 @@ jobs:
     - name: Restore NuGet packages
       shell: pwsh
       run: |
-        dotnet restore -c Debug
+        dotnet restore
 
     - name: Build solution
       shell: pwsh
