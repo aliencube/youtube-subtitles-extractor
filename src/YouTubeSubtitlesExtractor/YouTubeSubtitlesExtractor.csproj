@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>YouTubeSubtitlesExtractor</AssemblyName>
+    <RootNamespace>YouTubeSubtitlesExtractor</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+    <Version>1.0.0</Version>
+    <PackageId>Aliencube.YouTubeSubtitlesExtractor</PackageId>
+
+    <Product>Aliencube YouTube Subtitles Extractor</Product>
+    <Copyright>© Aliencube Community. All rights reserved.</Copyright>
+
+    <Title>Aliencube.YouTubeSubtitlesExtractor</Title>
+    <Summary>Extracts subtitles directly from the YouTube video link</Summary>
+    <Description>This package provides a useful feature that extracts subtitles directly from the YouTube video link.</Description>
+    <PackageTags>Aliencube;YouTube;Subtitles;Captions</PackageTags>
+
+    <Owners>justinyoo</Owners>
+    <Authors>Justin Yoo</Authors>
+    <Company>Aliencube Community</Company>
+
+    <RepositoryUrl>https://github.com/aliencube/youtube-subtitles-extractor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <PackageProjectUrl>https://github.com/aliencube/youtube-subtitles-extractor</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+
+    <PackageIconUrl>https://raw.githubusercontent.com/aliencube/youtube-subtitles-extractor/main/icons/YouTubeSubtitlesExtractor.png</PackageIconUrl>
+    <PackageIcon>YouTubeSubtitlesExtractor.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icons\YouTubeSubtitlesExtractor.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project>

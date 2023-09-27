@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{261C8A2F-343C-4ECE-BE55-B7D25CC1DF04}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeSubtitlesExtractor", "src\YouTubeSubtitlesExtractor\YouTubeSubtitlesExtractor.csproj", "{DA994943-763E-4946-835F-306EEB8D19F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{54EEFCF5-7733-451D-8523-6E20173B51E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeSubtitlesExtractorTests", "test\YouTubeSubtitlesExtractorTests\YouTubeSubtitlesExtractorTests.csproj", "{9C9459D6-C28C-4599-818D-0135AF450AAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA994943-763E-4946-835F-306EEB8D19F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA994943-763E-4946-835F-306EEB8D19F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA994943-763E-4946-835F-306EEB8D19F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA994943-763E-4946-835F-306EEB8D19F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C9459D6-C28C-4599-818D-0135AF450AAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C9459D6-C28C-4599-818D-0135AF450AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C9459D6-C28C-4599-818D-0135AF450AAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C9459D6-C28C-4599-818D-0135AF450AAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA994943-763E-4946-835F-306EEB8D19F8} = {261C8A2F-343C-4ECE-BE55-B7D25CC1DF04}
+		{9C9459D6-C28C-4599-818D-0135AF450AAE} = {54EEFCF5-7733-451D-8523-6E20173B51E2}
+	EndGlobalSection
+EndGlobal
