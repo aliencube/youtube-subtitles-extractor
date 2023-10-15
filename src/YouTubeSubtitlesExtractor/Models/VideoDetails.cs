@@ -26,7 +26,7 @@ public class VideoDetails
     /// <summary>
     /// Gets or sets the list of keywords of the video.
     /// </summary>
-    public virtual List<string> Keywords { get; set; } = [];
+    public virtual List<string> Keywords { get; set; } = new List<string>();
 
     /// <summary>
     /// Gets or sets the channel ID.
