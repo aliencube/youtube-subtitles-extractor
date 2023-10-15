@@ -33,6 +33,9 @@ This is the NuGet package library that retrieves subtitles from a given YouTube 
 1. Extract subtitles from the given YouTube video URL. There are a few options to extract subtitles.
 
     ```csharp
+    // Extract video details including title, description and available subtitle languagesfrom the given YouTube video URL.
+    VideoDetails details = await youtube.ExtractDetailsAsync(youtubeUrl);
+
     // Extract a single subtitle from the given YouTube video URL.
     // - defaults to English (en)
     var subtitle = await youtube.ExtractSubtitleAsync(youtubeUrl);
