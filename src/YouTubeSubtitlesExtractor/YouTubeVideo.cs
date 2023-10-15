@@ -14,6 +14,7 @@ public class YouTubeVideo : IYouTubeVideo
 {
     private static readonly Regex youtubeUrl = new(@"(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/.*[&?#]v=|youtube\.com\/live\/)([\w-]{11})");
     private static readonly Regex youtubeCaptionTracks = new(@"captionTracks"":(\[.*?\])");
+    private static readonly Regex youtubeVideoDetails = new(@"videoDetails"":(\{.*?\[.*?\]\}.*?\})");
 
     private readonly HttpClient _http;
 
@@ -48,28 +49,13 @@ public class YouTubeVideo : IYouTubeVideo
     public async Task<List<Subtitle>> ExtractSubtitlesAsync(VideoOptions options)
     {
         options.VideoId = options.VideoId ?? this.GetVideoId(options.VideoUrl);
-        if (string.IsNullOrWhiteSpace(options.VideoId))
-        {
-            throw new ArgumentException("Video ID is invalid.", nameof(options.VideoId));
-        }
 
         var subtitles = new List<Subtitle>();
-
-        var url = $"https://www.youtube.com/watch?v={options.VideoId}";
-        var page = await this._http.GetStringAsync(url).ConfigureAwait(false);
-
-        if (page.Contains("captionTracks") == false)
+        var captionTracks = await this.ExtractCaptionTracksAsync(options.VideoId).ConfigureAwait(false);
+        if (captionTracks == default)
         {
             return subtitles;
         }
-
-        var match = youtubeCaptionTracks.Match(page);
-        if (match.Success == false)
-        {
-            return subtitles;
-        }
-
-        var captionTracks = JsonConvert.DeserializeObject<List<CaptionTrack>>(match.Groups[1].Value);
 
         foreach (var code in options.LanguageCodes)
         {
@@ -78,15 +64,10 @@ public class YouTubeVideo : IYouTubeVideo
             {
                 continue;
             }
-            var track = default(CaptionTrack);
-            if (tracks.Count() > 1)
-            {
-                track = tracks.SingleOrDefault(p => string.IsNullOrWhiteSpace(p.Kind) == true);
-            }
-            else
-            {
-                track = tracks.SingleOrDefault();
-            }
+
+            var track = tracks.Count() > 1
+                ? tracks.SingleOrDefault(p => string.IsNullOrWhiteSpace(p.Kind) == true)
+                : tracks.SingleOrDefault();
             if (track == default)
             {
                 continue;
@@ -103,6 +84,59 @@ public class YouTubeVideo : IYouTubeVideo
     /// <inheritdoc/>
     public async Task<VideoDetails> ExtractVideoDetailsAsync(string videoUrl)
     {
-        throw new NotImplementedException();
+        var videoId = this.GetVideoId(videoUrl);
+        if (string.IsNullOrWhiteSpace(videoId))
+        {
+            throw new ArgumentException("Video ID is invalid.", nameof(videoId));
+        }
+
+        var details = default(VideoDetails);
+        var url = $"https://www.youtube.com/watch?v={videoId}";
+        var page = await this._http.GetStringAsync(url).ConfigureAwait(false);
+        if (page.Contains("videoDetails") == false)
+        {
+            return details;
+        }
+
+        var match = youtubeVideoDetails.Match(page);
+        if (match.Success == false)
+        {
+            return details;
+        }
+
+        details = JsonConvert.DeserializeObject<VideoDetails>(match.Groups[1].Value);
+
+        var captionTracks = await this.ExtractCaptionTracksAsync(videoId).ConfigureAwait(false);
+        details.AvaiableLanguageCodes = captionTracks.GroupBy(p => p.LanguageCode)
+                                                     .Select(g => g.First().LanguageCode)
+                                                     .ToList();
+        return details;
+    }
+
+    private async Task<List<CaptionTrack>> ExtractCaptionTracksAsync(string videoId)
+    {
+        if (string.IsNullOrWhiteSpace(videoId))
+        {
+            throw new ArgumentException("Video ID is invalid.", nameof(videoId));
+        }
+
+        var tracks = default(List<CaptionTrack>);
+        var url = $"https://www.youtube.com/watch?v={videoId}";
+        var page = await this._http.GetStringAsync(url).ConfigureAwait(false);
+
+        if (page.Contains("captionTracks") == false)
+        {
+            return tracks;
+        }
+
+        var match = youtubeCaptionTracks.Match(page);
+        if (match.Success == false)
+        {
+            return tracks;
+        }
+
+        tracks = JsonConvert.DeserializeObject<List<CaptionTrack>>(match.Groups[1].Value);
+
+        return tracks;
     }
 }

@@ -109,5 +109,33 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
             result.Should().NotBeNull();
             result.LanguageCode.Should().BeEquivalentTo(languageCode);
         }
-    }
+
+        [TestMethod]
+        public void Given_NullParameter_When_ExtractVideoDetailsAsync_Invoked_Then_It_Should_Throw_Exception()
+        {
+            var http = new HttpClient();
+            var sut = new YouTubeVideo(http);
+
+            Func<Task> result = async () => await sut.ExtractVideoDetailsAsync(null).ConfigureAwait(false);
+
+            result.Should().ThrowAsync<ArgumentNullException>();
+        }
+
+        [DataTestMethod]
+        [DataRow("https://www.youtube.com/live/47CZqb53nCM?si=QOR3XVjcUzZSSdqX", 1)]
+        [DataRow("https://www.youtube.com/watch?v=i8tMiWHK05M", 2)]
+        public async Task Given_VideoUrl_When_ExtractVideoDetailsAsync_Invoked_Then_It_Should_Return_VideoDetails(string videoUrl, int count)
+        {
+            var http = new HttpClient();
+            var sut = new YouTubeVideo(http);
+
+            var result = await sut.ExtractVideoDetailsAsync(videoUrl).ConfigureAwait(false);
+
+            result.Should().NotBeNull();
+            result.VideoId.Should().NotBeNullOrWhiteSpace();
+            result.Title.Should().NotBeNullOrWhiteSpace();
+            result.ShortDescription.Should().NotBeNullOrWhiteSpace();
+            result.AvaiableLanguageCodes.Should().HaveCount(count);
+        }
+     }
 }
