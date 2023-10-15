@@ -14,6 +14,7 @@ public class YouTubeVideo : IYouTubeVideo
 {
     private static readonly Regex youtubeUrl = new(@"(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/.*[&?#]v=|youtube\.com\/live\/)([\w-]{11})");
     private static readonly Regex youtubeCaptionTracks = new(@"captionTracks"":(\[.*?\])");
+    private static readonly Regex youtubeVideoDetails = new(@"videoDetails"":(\{.*?\[.*?\]\}.*?\})");
 
     private readonly HttpClient _http;
 
@@ -70,7 +71,6 @@ public class YouTubeVideo : IYouTubeVideo
         }
 
         var captionTracks = JsonConvert.DeserializeObject<List<CaptionTrack>>(match.Groups[1].Value);
-
         foreach (var code in options.LanguageCodes)
         {
             var tracks = captionTracks.Where(p => p.LanguageCode.Equals(code, StringComparison.InvariantCultureIgnoreCase));
@@ -78,15 +78,10 @@ public class YouTubeVideo : IYouTubeVideo
             {
                 continue;
             }
-            var track = default(CaptionTrack);
-            if (tracks.Count() > 1)
-            {
-                track = tracks.SingleOrDefault(p => string.IsNullOrWhiteSpace(p.Kind) == true);
-            }
-            else
-            {
-                track = tracks.SingleOrDefault();
-            }
+
+            var track = tracks.Count() > 1
+                ? tracks.SingleOrDefault(p => string.IsNullOrWhiteSpace(p.Kind) == true)
+                : tracks.SingleOrDefault();
             if (track == default)
             {
                 continue;
@@ -103,6 +98,29 @@ public class YouTubeVideo : IYouTubeVideo
     /// <inheritdoc/>
     public async Task<VideoDetails> ExtractVideoDetailsAsync(string videoUrl)
     {
-        throw new NotImplementedException();
+        var videoId = this.GetVideoId(videoUrl);
+        if (string.IsNullOrWhiteSpace(videoId))
+        {
+            throw new ArgumentException("Video ID is invalid.", nameof(videoId));
+        }
+
+        var details = default(VideoDetails);
+
+        var url = $"https://www.youtube.com/watch?v={videoId}";
+        var page = await this._http.GetStringAsync(url).ConfigureAwait(false);
+        if (page.Contains("videoDetails") == false)
+        {
+            return details;
+        }
+
+        var match = youtubeVideoDetails.Match(page);
+        if (match.Success == false)
+        {
+            return details;
+        }
+
+        details = JsonConvert.DeserializeObject<VideoDetails>(match.Groups[1].Value);
+
+        return details;
     }
 }
