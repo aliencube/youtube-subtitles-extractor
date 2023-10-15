@@ -28,4 +28,11 @@ public interface IYouTubeVideo
     /// <param name="options"><see cref="VideoOptions"/> instance.</param>
     /// <returns>Returns the list of <see cref="Subtitle"/> instances.</returns>
     Task<List<Subtitle>> ExtractSubtitlesAsync(VideoOptions options);
+
+    /// <summary>
+    /// Extracts the detail from the given video options.
+    /// <summary>
+    /// <params name="videoUrl">YouTube video URL.</param>
+    /// <returns>Returns the list of <see cref="videoDetails"/> instances.</returns>
+    Task<VideoDetail> ExtractDetailAsync(String videoUrl);
 }

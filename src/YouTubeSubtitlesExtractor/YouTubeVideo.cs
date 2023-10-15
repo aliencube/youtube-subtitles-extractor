@@ -99,4 +99,11 @@ public class YouTubeVideo : IYouTubeVideo
 
         return subtitles;
     }
+
+    /// <inheritdoc/>
+    public async Task<VideoDetail> ExtractDetailAsync(string videoUrl)
+    {
+        throw new NotImplementedException();
+    }
+
 }
