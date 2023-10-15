@@ -101,9 +101,30 @@ public class YouTubeVideo : IYouTubeVideo
     }
 
     // <inheritdoc/>
-    public async Task<VideoDetails> ExtractDetailAsync(string videoUrl)
+    public async Task<VideoDetails> ExtractDetailsAsync(VideoOptions options)
     {
-        throw new NotImplementedException();
-    }
+        //throw new NotImplementedException();
+        options.VideoId = options.VideoId ?? this.GetVideoId(options.VideoUrl);
+        if (string.IsNullOrWhiteSpace(options.VideoId))
+        {
+            throw new ArgumentException("Video ID is invalid.", nameof(options.VideoId));
+        }
 
+        var details = new VideoDetails();
+
+        var url = $"https://www.youtube.com/watch?v={options.VideoId}";
+        var page = await this._http.GetStringAsync(url).ConfigureAwait(false);
+
+        if (page.Contains("videoDetails") == false)
+        {
+            return details;
+        }
+
+        var match = youtubeCaptionTracks.Match(page);
+        if (match.Success == false)
+        {
+            return details;
+        }
+        return details;
+    }
 }
