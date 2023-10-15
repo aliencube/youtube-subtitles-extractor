@@ -92,7 +92,7 @@ public class Thumbnail
     /// <summary>
     /// Gets or sets the list of thumbnails.
     /// </summary>
-    public virtual List<ThumbnailItem> Thumbnails { get; set; } = [];
+    public virtual List<ThumbnailItem> Thumbnails { get; set; } = new List<ThumbnailItem>();
 }
 
 /// <summary>
