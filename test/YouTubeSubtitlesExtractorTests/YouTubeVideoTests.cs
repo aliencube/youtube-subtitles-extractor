@@ -122,9 +122,9 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
         }
 
         [DataTestMethod]
-        [DataRow("https://www.youtube.com/live/47CZqb53nCM?si=QOR3XVjcUzZSSdqX")]
-        [DataRow("https://www.youtube.com/watch?v=i8tMiWHK05M")]
-        public async Task Given_VideoUrl_When_ExtractVideoDetailsAsync_Invoked_Then_It_Should_Return_VideoDetails(string videoUrl)
+        [DataRow("https://www.youtube.com/live/47CZqb53nCM?si=QOR3XVjcUzZSSdqX", 1)]
+        [DataRow("https://www.youtube.com/watch?v=i8tMiWHK05M", 2)]
+        public async Task Given_VideoUrl_When_ExtractVideoDetailsAsync_Invoked_Then_It_Should_Return_VideoDetails(string videoUrl, int count)
         {
             var http = new HttpClient();
             var sut = new YouTubeVideo(http);
@@ -135,6 +135,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
             result.VideoId.Should().NotBeNullOrWhiteSpace();
             result.Title.Should().NotBeNullOrWhiteSpace();
             result.ShortDescription.Should().NotBeNullOrWhiteSpace();
+            result.AvaiableLanguageCodes.Should().HaveCount(count);
         }
      }
 }

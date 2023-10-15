@@ -49,7 +49,7 @@ public class VideoDetails
     public virtual bool IsCrawlable { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="Aliencube.YouTubeSubtitlesExtractor.Models.Thumbnail"/> value.
+    /// Gets or sets the <see cref="Models.Thumbnail"/> value.
     /// </summary>
     public virtual Thumbnail? Thumbnail { get; set; }
 
@@ -82,6 +82,11 @@ public class VideoDetails
     /// Gets or sets the value indicating whether it's live content or not.
     /// </summary>
     public virtual bool IsLiveContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the list of available langauge codes.
+    /// </summary>
+    public virtual List<string> AvaiableLanguageCodes { get; set; } = new List<string>();
 }
 
 /// <summary>
