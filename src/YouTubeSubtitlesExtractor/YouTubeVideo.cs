@@ -100,8 +100,8 @@ public class YouTubeVideo : IYouTubeVideo
         return subtitles;
     }
 
-    /// <inheritdoc/>
-    public async Task<VideoDetail> ExtractDetailAsync(string videoUrl)
+    // <inheritdoc/>
+    public async Task<VideoDetails> ExtractDetailAsync(string videoUrl)
     {
         throw new NotImplementedException();
     }

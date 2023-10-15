@@ -30,9 +30,9 @@ public interface IYouTubeVideo
     Task<List<Subtitle>> ExtractSubtitlesAsync(VideoOptions options);
 
     /// <summary>
-    /// Extracts the detail from the given video options.
+    /// Extracts the details from the given video options.
     /// <summary>
     /// <params name="videoUrl">YouTube video URL.</param>
     /// <returns>Returns the list of <see cref="videoDetails"/> instances.</returns>
-    Task<VideoDetail> ExtractDetailAsync(String videoUrl);
+    Task<VideoDetails> ExtractDetailAsync(string videoUrl);
 }

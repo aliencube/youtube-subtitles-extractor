@@ -4,7 +4,7 @@ namespace Aliencube.YouTubeSubtitlesExtractor.Models;
 /// This represents the content of video detail.
 /// </summary>
 
-public class VideoDetail
+public class VideoDetails
 {
-       
+
 }
