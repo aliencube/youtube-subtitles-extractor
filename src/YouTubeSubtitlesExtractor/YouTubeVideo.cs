@@ -35,7 +35,7 @@ public class YouTubeVideo : IYouTubeVideo
     }
 
     /// <inheritdoc/>
-    public async Task<VideoDetail> GetVideoDetail(string videoUrl)
+    public async Task<VideoDetails> GetVideoDetails(string videoUrl)
     {
         throw new NotImplementedException();
     }

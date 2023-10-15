@@ -19,7 +19,7 @@ public interface IYouTubeVideo
     /// </summary>
     /// <param name="videoUrl">YouTube video URL.</param>
     /// <returns>Returns a <see cref="VideoDetail"/> instance containing video details.</returns>
-    Task<VideoDetail> GetVideoDetail(string videoUrl);
+    Task<VideoDetails> GetVideoDetails(string videoUrl);
 
     /// <summary>
     /// Extracts the subtitles from the given video options.
