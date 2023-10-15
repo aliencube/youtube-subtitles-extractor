@@ -34,20 +34,20 @@ This is the NuGet package library that retrieves subtitles from a given YouTube 
 
     ```csharp
     // Extract video details including title, description and available subtitle languagesfrom the given YouTube video URL.
-    VideoDetails details = await youtube.ExtractDetailsAsync(youtubeUrl);
+    VideoDetails details = await youtube.ExtractVideoDetailsAsync(youtubeUrl);
 
     // Extract a single subtitle from the given YouTube video URL.
     // - defaults to English (en)
-    var subtitle = await youtube.ExtractSubtitleAsync(youtubeUrl);
+    Subtitle subtitle = await youtube.ExtractSubtitleAsync(youtubeUrl);
 
     // Extract a single subtitle from the given YouTube video URL with the specified language code.
     // eg) Korean (ko)
-    var subtitle = await youtube.ExtractSubtitleAsync(youtubeUrl, "ko");
+    Subtitle subtitle = await youtube.ExtractSubtitleAsync(youtubeUrl, "ko");
 
     // Extract list of subtitles from the given VideoOptions instance.
     // eg) English and Korean (ko)
     var options = new VideoOptions { Url = youtubeUrl, LanguageCodes = { "en", "ko" } };
-    var subtitles = await youtube.ExtractSubtitlesAsync(options);
+    List<Subtitle> subtitles = await youtube.ExtractSubtitlesAsync(options);
     ```
 
 ## Issues or Feedbacks
