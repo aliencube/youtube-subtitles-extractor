@@ -33,6 +33,6 @@ public interface IYouTubeVideo
     /// Extracts the details from the given video options.
     /// <summary>
     /// <params name="videoUrl">YouTube video URL.</param>
-    /// <returns>Returns the list of <see cref="videoDetails"/> instances.</returns>
+    /// <returns>Returns the list of <see cref="VideoDetails"/> instances.</returns>
     Task<VideoDetails> ExtractDetailsAsync(VideoOptions options);
 }
