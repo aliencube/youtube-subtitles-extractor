@@ -35,6 +35,12 @@ public class YouTubeVideo : IYouTubeVideo
     }
 
     /// <inheritdoc/>
+    public async Task<VideoDetail> GetVideoDetail(string videoUrl)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc/>
     public async Task<Subtitle> ExtractSubtitleAsync(string videoUrl, string languageCode = "en")
     {
         var options = new VideoOptions() { VideoUrl = videoUrl, LanguageCodes = { languageCode } };

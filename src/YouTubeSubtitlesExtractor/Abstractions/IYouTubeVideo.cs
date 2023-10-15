@@ -15,6 +15,13 @@ public interface IYouTubeVideo
     string GetVideoId(string videoUrl);
 
     /// <summary>
+    /// Gets video details including title, description and available subtitle languages from the provided YouTube video URL.
+    /// </summary>
+    /// <param name="videoUrl">YouTube video URL.</param>
+    /// <returns>Returns a <see cref="VideoDetail"/> instance containing video details.</returns>
+    Task<VideoDetail> GetVideoDetail(string videoUrl);
+
+    /// <summary>
     /// Extracts the subtitles from the given video options.
     /// </summary>
     /// <param name="videoUrl">YouTube video URL.</param>
