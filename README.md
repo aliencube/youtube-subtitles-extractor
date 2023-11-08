@@ -50,7 +50,7 @@ This is the NuGet package library that retrieves subtitles from a given YouTube 
     List<Subtitle> subtitles = await youtube.ExtractSubtitlesAsync(options);
     ```
 
-## Sample Console Cpp
+## Sample Console App
 
 You can find a sample console app to extract YouTube video details from [here](./samples/YouTubeSubtitlesExtractor.ConsoleApp). Alternatively, run the following command to run the console app.
 
