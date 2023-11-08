@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeSubtitlesExtractor",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{54EEFCF5-7733-451D-8523-6E20173B51E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeSubtitlesExtractorTests", "test\YouTubeSubtitlesExtractorTests\YouTubeSubtitlesExtractorTests.csproj", "{9C9459D6-C28C-4599-818D-0135AF450AAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeSubtitlesExtractorTests", "test\YouTubeSubtitlesExtractorTests\YouTubeSubtitlesExtractorTests.csproj", "{9C9459D6-C28C-4599-818D-0135AF450AAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{7B63E2DF-B82E-4C29-9F8D-261BD02BE279}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTubeSubtitlesExtractor.ConsoleApp", "samples\YouTubeSubtitlesExtractor.ConsoleApp\YouTubeSubtitlesExtractor.ConsoleApp.csproj", "{E0189070-5D9B-43EB-BB71-2012C421DB80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{9C9459D6-C28C-4599-818D-0135AF450AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C9459D6-C28C-4599-818D-0135AF450AAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C9459D6-C28C-4599-818D-0135AF450AAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0189070-5D9B-43EB-BB71-2012C421DB80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0189070-5D9B-43EB-BB71-2012C421DB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0189070-5D9B-43EB-BB71-2012C421DB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0189070-5D9B-43EB-BB71-2012C421DB80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +40,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DA994943-763E-4946-835F-306EEB8D19F8} = {261C8A2F-343C-4ECE-BE55-B7D25CC1DF04}
 		{9C9459D6-C28C-4599-818D-0135AF450AAE} = {54EEFCF5-7733-451D-8523-6E20173B51E2}
+		{E0189070-5D9B-43EB-BB71-2012C421DB80} = {7B63E2DF-B82E-4C29-9F8D-261BD02BE279}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C208B76-6651-4B0D-A717-AE1CC235DE7A}
 	EndGlobalSection
 EndGlobal
