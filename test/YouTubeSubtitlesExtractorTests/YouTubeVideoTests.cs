@@ -11,7 +11,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
         [TestMethod]
         public void Given_NullParameter_When_Initiated_Then_It_Should_Throw_Exception()
         {
-            Action action = () => new YouTubeVideo(null);
+            Action action = () => new YouTubeVideo(default(HttpClient)!);
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -116,7 +116,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
             var http = new HttpClient();
             var sut = new YouTubeVideo(http);
 
-            Func<Task> result = async () => await sut.ExtractVideoDetailsAsync(null).ConfigureAwait(false);
+            Func<Task> result = async () => await sut.ExtractVideoDetailsAsync(default(string)!).ConfigureAwait(false);
 
             result.Should().ThrowAsync<ArgumentNullException>();
         }
@@ -135,7 +135,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
             result.VideoId.Should().NotBeNullOrWhiteSpace();
             result.Title.Should().NotBeNullOrWhiteSpace();
             result.ShortDescription.Should().NotBeNullOrWhiteSpace();
-            result.AvaiableLanguageCodes.Should().HaveCount(count);
+            result.AvailableLanguageCodes.Should().HaveCount(count);
         }
      }
 }

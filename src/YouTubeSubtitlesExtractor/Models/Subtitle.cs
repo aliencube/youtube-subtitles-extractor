@@ -40,7 +40,7 @@ public class Subtitle
     {
         if (string.IsNullOrWhiteSpace(content))
         {
-            return new List<SubtitleText>();
+            return [];
         }
 
         var doc = new XmlDocument();
@@ -49,7 +49,7 @@ public class Subtitle
         var serialised = JsonConvert.SerializeXmlNode(doc);
         var deserialised = JsonConvert.DeserializeObject<SubtitleXmlRoot>(serialised);
 
-        return deserialised == null ? new List<SubtitleText>() : deserialised.Transcript.Text;
+        return deserialised == default ? [] : deserialised.Transcript!.Text!;
     }
 }
 
