@@ -55,8 +55,10 @@ This is the NuGet package library that retrieves subtitles from a given YouTube 
 You can find a sample console app to extract YouTube video details from [here](./samples/YouTubeSubtitlesExtractor.ConsoleApp). Alternatively, run the following command to run the console app.
 
 ```bash
-dotnet run --project ./samples/YouTubeSubtitlesExtractor.ConsoleApp -- -u [YOUTUBE_VIDEO_URL]
+dotnet run --project ./samples/YouTubeSubtitlesExtractor.ConsoleApp
 ```
+
+Then, enter a YouTube link to get the details and available language codes. After you enter the language code, it will display the subtitles in the given language.
 
 ## Issues or Feedbacks
 
