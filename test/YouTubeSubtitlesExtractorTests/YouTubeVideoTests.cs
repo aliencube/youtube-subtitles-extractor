@@ -74,7 +74,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
             var options = new VideoOptions()
             {
                 VideoUrl = videoUrl,
-                LanguageCodes = languageCodes.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList()
+                LanguageCodes = [.. languageCodes.Split([ "," ], StringSplitOptions.RemoveEmptyEntries)]
             };
 
             var result = await sut.ExtractSubtitlesAsync(options).ConfigureAwait(false);
