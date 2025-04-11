@@ -48,7 +48,7 @@ public class YouTubeVideo : IYouTubeVideo
     /// <inheritdoc/>
     public async Task<List<Subtitle>> ExtractSubtitlesAsync(VideoOptions options)
     {
-        options.VideoId = options.VideoId ?? this.GetVideoId(options.VideoUrl);
+        options.VideoId ??= this.GetVideoId(options.VideoUrl!);
 
         var subtitles = new List<Subtitle>();
         var captionTracks = await this.ExtractCaptionTracksAsync(options.VideoId).ConfigureAwait(false);
@@ -59,7 +59,7 @@ public class YouTubeVideo : IYouTubeVideo
 
         foreach (var code in options.LanguageCodes)
         {
-            var tracks = captionTracks.Where(p => p.LanguageCode.Equals(code, StringComparison.InvariantCultureIgnoreCase));
+            var tracks = captionTracks.Where(p => p.LanguageCode!.Equals(code, StringComparison.InvariantCultureIgnoreCase));
             if (tracks.Any() == false)
             {
                 continue;
@@ -95,21 +95,24 @@ public class YouTubeVideo : IYouTubeVideo
         var page = await this._http.GetStringAsync(url).ConfigureAwait(false);
         if (page.Contains("videoDetails") == false)
         {
+#pragma warning disable CS8603 // Possible null reference return.
             return details;
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         var match = youtubeVideoDetails.Match(page);
         if (match.Success == false)
         {
+#pragma warning disable CS8603 // Possible null reference return.
             return details;
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         details = JsonConvert.DeserializeObject<VideoDetails>(match.Groups[1].Value);
 
         var captionTracks = await this.ExtractCaptionTracksAsync(videoId).ConfigureAwait(false);
-        details.AvaiableLanguageCodes = captionTracks.GroupBy(p => p.LanguageCode)
-                                                     .Select(g => g.First().LanguageCode)
-                                                     .ToList();
+        details!.AvailableLanguageCodes = [.. captionTracks.GroupBy(p => p.LanguageCode)
+                                                          .Select(g => g.First().LanguageCode!)];
         return details;
     }
 
@@ -126,17 +129,21 @@ public class YouTubeVideo : IYouTubeVideo
 
         if (page.Contains("captionTracks") == false)
         {
+#pragma warning disable CS8603 // Possible null reference return.
             return tracks;
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         var match = youtubeCaptionTracks.Match(page);
         if (match.Success == false)
         {
+#pragma warning disable CS8603 // Possible null reference return.
             return tracks;
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         tracks = JsonConvert.DeserializeObject<List<CaptionTrack>>(match.Groups[1].Value);
 
-        return tracks;
+        return tracks!;
     }
 }

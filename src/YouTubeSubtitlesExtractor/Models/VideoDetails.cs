@@ -26,7 +26,7 @@ public class VideoDetails
     /// <summary>
     /// Gets or sets the list of keywords of the video.
     /// </summary>
-    public virtual List<string> Keywords { get; set; } = new List<string>();
+    public virtual List<string> Keywords { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the channel ID.
@@ -86,7 +86,7 @@ public class VideoDetails
     /// <summary>
     /// Gets or sets the list of available langauge codes.
     /// </summary>
-    public virtual List<string> AvaiableLanguageCodes { get; set; } = new List<string>();
+    public virtual List<string> AvailableLanguageCodes { get; set; } = [];
 }
 
 /// <summary>
@@ -97,7 +97,7 @@ public class Thumbnail
     /// <summary>
     /// Gets or sets the list of thumbnails.
     /// </summary>
-    public virtual List<ThumbnailItem> Thumbnails { get; set; } = new List<ThumbnailItem>();
+    public virtual List<ThumbnailItem> Thumbnails { get; set; } = [];
 }
 
 /// <summary>

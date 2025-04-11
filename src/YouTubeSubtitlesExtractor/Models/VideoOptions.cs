@@ -18,5 +18,5 @@ public class VideoOptions
     /// <summary>
     /// Gets or sets the list of language codes.
     /// </summary>
-    public virtual List<string> LanguageCodes { get; set; } = new(); // { "en" };
+    public virtual List<string> LanguageCodes { get; set; } = []; // { "en" };
 }
