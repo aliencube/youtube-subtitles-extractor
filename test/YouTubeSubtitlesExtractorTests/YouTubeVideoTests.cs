@@ -1,7 +1,7 @@
-using FluentAssertions;
-
 using Aliencube.YouTubeSubtitlesExtractor;
 using Aliencube.YouTubeSubtitlesExtractor.Models;
+
+using Shouldly;
 
 namespace Aliencube.YouTubeSubtitlesExtractorTests
 {
@@ -13,7 +13,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
         {
             Action action = () => new YouTubeVideo(default(HttpClient)!);
 
-            action.Should().Throw<ArgumentNullException>();
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [DataTestMethod]
@@ -29,7 +29,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
 
             var result = sut.GetVideoId(videoUrl);
 
-            result.Should().Be(expected);
+            result.ShouldBe(expected);
         }
 
         [DataTestMethod]
@@ -44,7 +44,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
 
             Func<Task> result = async () => await sut.ExtractSubtitlesAsync(options).ConfigureAwait(false);
 
-            result.Should().ThrowAsync<ArgumentException>();
+            result.ShouldThrowAsync<ArgumentException>();
         }
 
         [DataTestMethod]
@@ -58,7 +58,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
 
             var result = await sut.ExtractSubtitlesAsync(options).ConfigureAwait(false);
 
-            result.Should().HaveCount(expected);
+            result.Count.ShouldBe(expected);
         }
 
         [DataTestMethod]
@@ -79,7 +79,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
 
             var result = await sut.ExtractSubtitlesAsync(options).ConfigureAwait(false);
 
-            result.Should().HaveCount(expected);
+            result.Count.ShouldBe(expected);
         }
 
         [DataTestMethod]
@@ -91,8 +91,8 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
 
             var result = await sut.ExtractSubtitleAsync(videoUrl).ConfigureAwait(false);
 
-            result.Should().NotBeNull();
-            result.LanguageCode.Should().BeEquivalentTo("en");
+            result.ShouldNotBeNull();
+            result.LanguageCode.ShouldBeEquivalentTo("en");
         }
 
         [DataTestMethod]
@@ -106,8 +106,8 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
 
             var result = await sut.ExtractSubtitleAsync(videoUrl, languageCode).ConfigureAwait(false);
 
-            result.Should().NotBeNull();
-            result.LanguageCode.Should().BeEquivalentTo(languageCode);
+            result.ShouldNotBeNull();
+            result.LanguageCode.ShouldBeEquivalentTo(languageCode);
         }
 
         [TestMethod]
@@ -118,7 +118,7 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
 
             Func<Task> result = async () => await sut.ExtractVideoDetailsAsync(default(string)!).ConfigureAwait(false);
 
-            result.Should().ThrowAsync<ArgumentNullException>();
+            result.ShouldThrowAsync<ArgumentNullException>();
         }
 
         [DataTestMethod]
@@ -131,11 +131,11 @@ namespace Aliencube.YouTubeSubtitlesExtractorTests
 
             var result = await sut.ExtractVideoDetailsAsync(videoUrl).ConfigureAwait(false);
 
-            result.Should().NotBeNull();
-            result.VideoId.Should().NotBeNullOrWhiteSpace();
-            result.Title.Should().NotBeNullOrWhiteSpace();
-            result.ShortDescription.Should().NotBeNullOrWhiteSpace();
-            result.AvailableLanguageCodes.Should().HaveCount(count);
+            result.ShouldNotBeNull();
+            result.VideoId.ShouldNotBeNullOrWhiteSpace();
+            result.Title.ShouldNotBeNullOrWhiteSpace();
+            result.ShortDescription.ShouldNotBeNullOrWhiteSpace();
+            result.AvailableLanguageCodes.Count.ShouldBe(count);
         }
      }
 }
