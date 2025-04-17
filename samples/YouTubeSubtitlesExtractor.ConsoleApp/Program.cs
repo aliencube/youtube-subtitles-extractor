@@ -62,9 +62,9 @@ if (subtitle.Content is null)
 Console.WriteLine("Start\t\tEnd\t\tSubtitle");
 foreach (var content in subtitle.Content)
 {
-    var text = content.Text ?? "-";
-    var start = TimeSpan.FromMilliseconds((content.Start ?? 0)*1000).ToString(@"hh\:mm\:ss");
-    var end = TimeSpan.FromMilliseconds(((content.Start ?? 0) + (content.Duration ?? 0))*1000).ToString(@"hh\:mm\:ss");
+    var text = string.IsNullOrWhiteSpace(content.Text) ? "-" : content.Text;
+    var start = TimeSpan.FromMilliseconds(content.Start*1000).ToString(@"hh\:mm\:ss");
+    var end = TimeSpan.FromMilliseconds((content.Start + content.Duration)*1000).ToString(@"hh\:mm\:ss");
 
     Console.WriteLine($"{start}\t{end}\t{text}");
 }

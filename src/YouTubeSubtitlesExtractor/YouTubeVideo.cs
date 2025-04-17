@@ -1,6 +1,5 @@
-﻿using System.Text.RegularExpressions;
-
-using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.RegularExpressions;
 
 using Aliencube.YouTubeSubtitlesExtractor.Abstractions;
 using Aliencube.YouTubeSubtitlesExtractor.Models;
@@ -15,6 +14,12 @@ public class YouTubeVideo : IYouTubeVideo
     private static readonly Regex youtubeUrl = new(@"(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/.*[&?#]v=|youtube\.com\/live\/)([\w-]{11})");
     private static readonly Regex youtubeCaptionTracks = new(@"captionTracks"":(\[.*?\])");
     private static readonly Regex youtubeVideoDetails = new(@"videoDetails"":(\{.*?\[.*?\]\}.*?\})");
+    private static readonly JsonSerializerOptions options = new()
+    {
+        IndentSize = 2,
+        PropertyNameCaseInsensitive = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    };
 
     private readonly HttpClient _http;
 
@@ -108,7 +113,7 @@ public class YouTubeVideo : IYouTubeVideo
 #pragma warning restore CS8603 // Possible null reference return.
         }
 
-        details = JsonConvert.DeserializeObject<VideoDetails>(match.Groups[1].Value);
+        details = JsonSerializer.Deserialize<VideoDetails>(match.Groups[1].Value, options);
 
         var captionTracks = await this.ExtractCaptionTracksAsync(videoId).ConfigureAwait(false);
         details!.AvailableLanguageCodes = [.. captionTracks.GroupBy(p => p.LanguageCode)
@@ -142,7 +147,7 @@ public class YouTubeVideo : IYouTubeVideo
 #pragma warning restore CS8603 // Possible null reference return.
         }
 
-        tracks = JsonConvert.DeserializeObject<List<CaptionTrack>>(match.Groups[1].Value);
+        tracks = JsonSerializer.Deserialize<List<CaptionTrack>>(match.Groups[1].Value, options);
 
         return tracks!;
     }

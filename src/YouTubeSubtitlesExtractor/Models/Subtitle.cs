@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-using Newtonsoft.Json;
+﻿using System.Xml.Serialization;
 
 namespace Aliencube.YouTubeSubtitlesExtractor.Models;
 
@@ -9,6 +7,8 @@ namespace Aliencube.YouTubeSubtitlesExtractor.Models;
 /// </summary>
 public class Subtitle
 {
+    private static readonly XmlSerializer serialiser = new (typeof(SubtitleTranscript));
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Subtitle"/> class.
     /// </summary>
@@ -43,36 +43,28 @@ public class Subtitle
             return [];
         }
 
-        var doc = new XmlDocument();
-        doc.LoadXml(content);
+        var deserialised = default(SubtitleTranscript);
+        using (var reader = new StringReader(content))
+        {
+            deserialised = serialiser.Deserialize(reader) as SubtitleTranscript;
+        }
 
-        var serialised = JsonConvert.SerializeXmlNode(doc);
-        var deserialised = JsonConvert.DeserializeObject<SubtitleXmlRoot>(serialised);
-
-        return deserialised == default ? [] : deserialised.Transcript!.Text!;
+        return deserialised == default ? [] : deserialised.Text!;
     }
-}
-
-/// <summary>
-/// This represents the root entity for the subtitle XML.
-/// </summary>
-public class SubtitleXmlRoot
-{
-    /// <summary>
-    /// Gets or sets the <see cref="SubtitleTranscript"/> instance.
-    /// </summary>
-    public virtual SubtitleTranscript? Transcript { get; set; }
 }
 
 /// <summary>
 /// This represents the transcript entity of the subtitle XML document.
 /// </summary>
+[Serializable]
+[XmlRoot("transcript")]
 public class SubtitleTranscript
 {
     /// <summary>
     /// Gets or sets the list of <see cref="SubtitleText"/> instance.
     /// </summary>
-    public virtual List<SubtitleText>? Text { get; set; }
+    [XmlElement("text")]
+    public virtual List<SubtitleText> Text { get; set; } = [];
 }
 
 /// <summary>
@@ -83,18 +75,18 @@ public class SubtitleText
     /// <summary>
     /// Gets or sets the start time.
     /// </summary>
-    [JsonProperty("@start")]
-    public virtual float? Start { get; set; }
+    [XmlAttribute("start")]
+    public virtual float Start { get; set; }
 
     /// <summary>
     /// Gets or sets the duration.
     /// </summary>
-    [JsonProperty("@dur")]
-    public virtual float? Duration { get; set; }
+    [XmlAttribute("dur")]
+    public virtual float Duration { get; set; }
 
     /// <summary>
     /// Gets or sets the subtitle text.
     /// </summary>
-    [JsonProperty("#text")]
-    public virtual string? Text { get; set; }
+    [XmlText]
+    public virtual string Text { get; set; } = string.Empty;
 }

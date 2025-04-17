@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Aliencube.YouTubeSubtitlesExtractor.Models;
 
@@ -18,10 +18,22 @@ public class VideoDetails
     public virtual string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets the video length in seconds.
+    /// Gets the video length in seconds.
     /// </summary>
-    [JsonProperty("lengthSeconds")]
-    public virtual int? LengthInSeconds { get; set; }
+    [JsonIgnore]
+    public virtual int? LengthInSeconds
+    {
+        get
+        {
+            return string.IsNullOrWhiteSpace(this.LengthInSecondsValue) ? default(int?) : Convert.ToInt32(this.LengthInSecondsValue);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the video length in seconds as a string value.
+    /// </summary>
+    [JsonPropertyName("lengthSeconds")]
+    public virtual string? LengthInSecondsValue { get; set; }
 
     /// <summary>
     /// Gets or sets the list of keywords of the video.
@@ -59,9 +71,22 @@ public class VideoDetails
     public virtual bool AllowRatings { get; set; }
 
     /// <summary>
-    /// Gets or sets the video count.
+    /// Gets the view count.
     /// </summary>
-    public virtual int? ViewCount { get; set; }
+    [JsonIgnore]
+    public virtual int? ViewCount
+    {
+        get
+        {
+            return string.IsNullOrWhiteSpace(this.ViewCountValue) ? default(int?) : Convert.ToInt32(this.ViewCountValue);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the view count as a string value.
+    /// </summary>
+    [JsonPropertyName("viewCount")]
+    public virtual string? ViewCountValue { get; set; }
 
     /// <summary>
     /// Gets or sets the video author.
